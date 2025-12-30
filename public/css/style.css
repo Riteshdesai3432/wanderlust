@@ -1,132 +1,188 @@
+/* ===============================
+   GLOBAL
+================================ */
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 400; /* default regular */
-}
-
-.regular {
   font-weight: 400;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #222;
 }
 
-/* nav bar */
-.navbar{
-    height: 5rem;
-    background-color:white ;
+/* ===============================
+   NAVBAR
+================================ */
+.navbar {
+  height: 5rem;
+  background-color: white;
+  padding: 0 1rem;
 }
 
-.fa-solid{
-    color: #fe424d;
-    height: 2rem;
+.nav-link {
+  color: #222222 !important;
+  font-weight: 500;
 }
 
-.navlink{
-    color: #222222 !important;
-}
-footer .f-info{
-    width: auto;
-}
-.container{
-    flex: 1;
-}
-.f-info{
-    text-align: center;
-    height: 8rem;
-    background-color: #ebebeb;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: space-evenly;
-}
-.f-info-links a{
-    text-decoration: none;
-    color: #222222;
+.fa-solid {
+  color: #fe424d;
+  font-size: 1.8rem;
 }
 
-.f-info-links a:hover{
-    text-decoration: underline;
+/* ===============================
+   FOOTER
+================================ */
+footer .f-info {
+  width: 100%;
 }
 
-.f-info-links , .f-info-socials , .f-info-brand {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+.container {
+  flex: 1;
+}
+
+.f-info {
+  text-align: center;
+  min-height: 8rem;
+  background-color: #ebebeb;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.4rem 0;
+}
+
+.f-info-links a {
+  text-decoration: none;
+  color: #222;
+  margin: 0 0.5rem;
+}
+
+.f-info-links a:hover {
+  text-decoration: underline;
 }
 
 .f-info-socials i {
-    font-size: 1.2rem;
-    margin-right: 1rem;
+  font-size: 1.2rem;
+  margin: 0 0.6rem;
 }
 
-
-/* Cards */
-.card{
-    border: none !important;
-    margin-bottom: 1rem;
-    cursor: pointer; /* optional: show pointer */
-    transition: transform 0.2s;
+/* ===============================
+   CARDS (LISTINGS)
+================================ */
+.card {
+  border: none !important;
+  margin-bottom: 1.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
-/* .card:hover {
-    transform: scale(1.02);
-} */
-
-.card-img-top{
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover !important;
+.card-img-top {
+  width: 100% !important;
+  height: 18rem;
+  object-fit: cover !important;
+  border-radius: 1rem;
 }
 
-.card-body{
-    padding: 1rem; /* give proper spacing */
+.card-body {
+  padding: 1rem;
 }
 
 .card-text {
-    font-weight: 400 !important;
-    color: #000 !important; /* ensure text is black */
+  font-weight: 400 !important;
+  color: #000 !important;
+  font-size: 0.95rem;
 }
 
-.listing-link{
-    text-decoration: none;
-    color: inherit; /* make link text follow normal color */
+.listing-link {
+  text-decoration: none;
+  color: inherit;
 }
 
-.card-img-top :hover{
-opacity: 0.7;
-background-color: white;
+/* ===============================
+   BUTTONS
+================================ */
+.add-btn,
+.update-btn {
+  background-color: #fe424d !important;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 0.6rem;
+  font-weight: 500;
 }
 
-/* Optional: spacing between rows & columns handled by Bootstrap's g-4 */
-
-/* new page */
-.add-btn{
-    background-color:#fe424d !important;
-    text-decoration: none !important;
+/* ===============================
+   SHOW PAGE
+================================ */
+.show-img {
+  height: 30vh;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
 }
 
-.update-btn{
-    background-color:#fe424d !important;
-    text-decoration: none !important;
-    
+.btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-/* Show page Style */
-
-.show-img{
-    height: 30vh;
+.sho-cards {
+  padding-left: 0;
+  padding-right: 0;
 }
 
-.btns{
-    display: flex;
+/* ===============================
+   RESPONSIVE BREAKPOINTS
+================================ */
+
+/* Tablets */
+@media (max-width: 768px) {
+
+  .navbar {
+    height: auto;
+    padding: 0.8rem;
+  }
+
+  .card-img-top {
+    height: 15rem;
+  }
+
+  .show-img {
+    height: 22vh;
+  }
+
+  .btns {
+    flex-direction: column;
+  }
 }
 
-.sho-cards{
-    padding-left: 0;
-    padding-right: 0;
-}
+/* Mobile */
+@media (max-width: 576px) {
 
-/* ✅ Light shadow hover effect for cards */
-.card:hover {
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-transition: box-shadow 0.3s ease-in-out;
+  body {
+    font-size: 0.95rem;
+  }
+
+  .card-img-top {
+    height: 13rem;
+  }
+
+  .show-img {
+    height: 20vh;
+  }
+
+  .f-info {
+    padding: 1.2rem;
+  }
 }
