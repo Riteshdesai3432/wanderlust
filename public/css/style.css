@@ -105,11 +105,14 @@ footer .f-info {
 ================================ */
 .card {
   border: none !important;
-  margin-bottom: 1.5rem;
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* ensures buttons at bottom */
+  height: 100%; /* fill grid cell */
 }
 
 .card:hover {
@@ -171,7 +174,13 @@ footer .f-info {
   border-radius: 1rem;
 }
 
+/* ===============================
+   LISTINGS GRID
+================================ */
 .sho-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Desktop: 4 cards */
+  gap: 1.5rem;
   padding-left: 0;
   padding-right: 0;
 }
@@ -180,9 +189,8 @@ footer .f-info {
    RESPONSIVE BREAKPOINTS
 ================================ */
 
-/* Tablets */
+/* Tablets: 2 cards */
 @media (max-width: 992px) {
-  /* Navbar */
   .navbar {
     flex-direction: column;
     height: auto;
@@ -190,27 +198,29 @@ footer .f-info {
     gap: 0.5rem;
   }
 
-  /* Cards */
+  .sho-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+    gap: 1rem;
+  }
+
   .card-img-top {
     height: 15rem;
   }
 
   .card-body {
-    padding: 0.8rem; /* smaller padding on tablets */
+    padding: 0.8rem;
   }
 
   .card-text {
-    font-size: 0.9rem; /* slightly smaller text */
+    font-size: 0.9rem;
   }
 
-  /* Show page image */
   .show-img {
     height: 22vh;
   }
 
-  /* Buttons */
   .btns {
-    flex-direction: row; /* keep inline on tablets */
+    flex-direction: row;
     gap: 0.5rem;
   }
 
@@ -218,40 +228,41 @@ footer .f-info {
   .update-btn {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-    width: auto; /* keep inline width */
+    width: auto;
   }
 }
 
-/* Mobile */
+/* Mobile: 2 cards */
 @media (max-width: 576px) {
   body {
     font-size: 0.95rem;
   }
 
-  /* Navbar */
   .navbar {
     padding: 0.8rem 1rem;
   }
 
-  /* Cards */
+  .sho-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+    gap: 0.8rem;
+  }
+
   .card-img-top {
     height: 13rem;
   }
 
   .card-body {
-    padding: 0.5rem; /* reduce padding */
+    padding: 0.5rem;
   }
 
   .card-text {
-    font-size: 0.85rem; /* smaller text for readability */
+    font-size: 0.85rem;
   }
 
-  /* Show page image */
   .show-img {
     height: 20vh;
   }
 
-  /* Footer */
   .f-info {
     padding: 1.2rem;
     gap: 0.5rem;
@@ -264,16 +275,15 @@ footer .f-info {
     gap: 0.5rem;
   }
 
-  /* Buttons */
   .btns {
-    flex-direction: column; /* stack buttons vertically */
+    flex-direction: column;
     gap: 0.5rem;
   }
 
   .add-btn,
   .update-btn {
-    padding: 0.4rem 0.8rem; /* smaller padding */
-    font-size: 0.85rem; /* smaller text */
-    width: 100%; /* fill card width */
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    width: 100%;
   }
 }
