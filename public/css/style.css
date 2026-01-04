@@ -1,12 +1,16 @@
 /* ===============================
-   GLOBAL
+   GLOBAL STYLES
 ================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  margin: 0;
-  padding: 0;
   background-color: #f8f9fa;
   color: #222;
 }
@@ -26,7 +30,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .nav-link {
@@ -49,6 +53,91 @@ a {
 
 .fa-solid:hover {
   transform: scale(1.1);
+}
+
+/* ===============================
+   CARDS (LISTINGS)
+================================ */
+.card {
+  border: none !important;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+  width: 100% !important;
+  height: 18rem;
+  object-fit: cover !important;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-text {
+  font-weight: 400 !important;
+  color: #000 !important;
+  font-size: 0.95rem;
+}
+
+/* ===============================
+   LISTINGS GRID
+================================ */
+.sho-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.add-btn,
+.update-btn {
+  background-color: #fe424d !important;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.6rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-btn:hover,
+.update-btn:hover {
+  background-color: #ff5a64 !important;
+  transform: scale(1.05);
+}
+
+.btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ===============================
+   SHOW PAGE
+================================ */
+.show-img {
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
+  border-radius: 1rem;
 }
 
 /* ===============================
@@ -101,95 +190,18 @@ footer .f-info {
 }
 
 /* ===============================
-   CARDS (LISTINGS)
-================================ */
-.card {
-  border: none !important;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* ensures buttons at bottom */
-  height: 100%; /* fill grid cell */
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-}
-
-.card-img-top {
-  width: 100% !important;
-  height: 18rem;
-  object-fit: cover !important;
-  border-radius: 1rem 1rem 0 0;
-}
-
-.card-body {
-  padding: 1rem;
-}
-
-.card-text {
-  font-weight: 400 !important;
-  color: #000 !important;
-  font-size: 0.95rem;
-}
-
-/* ===============================
-   BUTTONS
-================================ */
-.add-btn,
-.update-btn {
-  background-color: #fe424d !important;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 0.6rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.add-btn:hover,
-.update-btn:hover {
-  background-color: #ff5a64 !important;
-  transform: scale(1.05);
-}
-
-.btns {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-/* ===============================
-   SHOW PAGE
-================================ */
-.show-img {
-  width: 100%;
-  height: 30vh;
-  object-fit: cover;
-  border-radius: 1rem;
-}
-
-/* ===============================
-   LISTINGS GRID
-================================ */
-.sho-cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Desktop: 4 cards */
-  gap: 1.5rem;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-/* ===============================
    RESPONSIVE BREAKPOINTS
 ================================ */
 
-/* Tablets: 2 cards */
+/* Large Tablets & Small Desktops (768px - 1199px) */
+@media (max-width: 1199px) {
+  .sho-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+}
+
+/* Tablets (577px - 992px) */
 @media (max-width: 992px) {
   .navbar {
     flex-direction: column;
@@ -199,7 +211,7 @@ footer .f-info {
   }
 
   .sho-cards {
-    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
@@ -216,23 +228,17 @@ footer .f-info {
   }
 
   .show-img {
-    height: 22vh;
-  }
-
-  .btns {
-    flex-direction: row;
-    gap: 0.5rem;
+    height: 25vh;
   }
 
   .add-btn,
   .update-btn {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-    width: auto;
   }
 }
 
-/* Mobile: 2 cards */
+/* Mobile Devices (up to 576px) */
 @media (max-width: 576px) {
   body {
     font-size: 0.95rem;
@@ -242,17 +248,28 @@ footer .f-info {
     padding: 0.8rem 1rem;
   }
 
+  .nav-link {
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .fa-solid {
+    font-size: 1.5rem;
+  }
+
   .sho-cards {
-    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.8rem;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .card-img-top {
-    height: 13rem;
+    height: 12rem;
   }
 
   .card-body {
-    padding: 0.5rem;
+    padding: 0.6rem;
   }
 
   .card-text {
@@ -265,7 +282,8 @@ footer .f-info {
 
   .f-info {
     padding: 1.2rem;
-    gap: 0.5rem;
+    gap: 0.8rem;
+    min-height: auto;
   }
 
   .f-info-links,
@@ -275,15 +293,43 @@ footer .f-info {
     gap: 0.5rem;
   }
 
+  .f-info-socials i {
+    font-size: 1.2rem;
+  }
+
   .btns {
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
   }
 
   .add-btn,
   .update-btn {
-    padding: 0.4rem 0.8rem;
+    padding: 0.5rem 1rem;
     font-size: 0.85rem;
     width: 100%;
+  }
+}
+
+/* Extra Small Mobile (up to 360px) */
+@media (max-width: 360px) {
+  .navbar {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .sho-cards {
+    gap: 0.6rem;
+  }
+
+  .card-img-top {
+    height: 10rem;
+  }
+
+  .card-body {
+    padding: 0.5rem;
+  }
+
+  .card-text {
+    font-size: 0.8rem;
   }
 }
