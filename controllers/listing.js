@@ -3,59 +3,118 @@ const Review = require("../models/review");
 // const { geocodeLocation } = require("../utils/geocode");
 const axios = require("axios");
 
+const geocodeLocation = async (location) => {
+  const response = await axios.get(
+    "https://nominatim.openstreetmap.org/search",
+    {
+      params: {
+        q: location,
+        format: "json",
+        limit: 1
+      },
+      headers: {
+        "User-Agent": "wanderlust-project"
+      }
+    }
+  );
+
+  if (!response.data.length) return null;
+
+  return {
+    lat: response.data[0].lat,
+    lng: response.data[0].lon
+  };
+};
 
 module.exports.index = async (req, res) => {
-  const allListing = await Listing.find({});
-  res.render("listing/index.ejs", { allListing });
-}
+  const listings = await Listing.find({});
+  res.render("listing/index", {
+    listings,
+    currUser: req.user,
+  });
+};
+
 
 module.exports.renderNewForm = (req, res) => {
   res.render("listing/new.ejs");
 }
 
-//geocoding
-
-// module.exports.createListings = async (req, res) => {
-//   const { location } = req.body.listing;
-
-//   const geoData = await geocodeLocation(location);
-
-//   const newListing = new Listing(req.body.listing);
-//   newListing.geometry = {
-//     type: "Point",
-//     coordinates: [geoData.lng, geoData.lat]
-//   };
-
-//   newListing.owner = req.user._id;
-//   await newListing.save();
-
-//   req.flash("success", "Successfully created a new listing!");
-//   res.redirect("/listing");
-// };
-
-
 module.exports.createListings = async (req, res) => {
-  let url = req.file.path;
-  let filename = req.file.filename;
+  const { location } = req.body.listing;
+
+  // ✅ GEOCODE LOCATION
+  const coords = await geocodeLocation(location);
+
+  if (!coords) {
+    req.flash("error", "Invalid location entered");
+    return res.redirect("/listing/new");
+  }
+
   const newListing = new Listing(req.body.listing);
+
+  // ✅ SAVE GEOMETRY FOR MAP
+  newListing.geometry = {
+    type: "Point",
+    coordinates: [coords.lng, coords.lat] // IMPORTANT ORDER
+  };
+
+  // ✅ OWNER
   newListing.owner = req.user._id;
-  newListing.image = {url,filename};
+
+  // ✅ IMAGE
+  if (req.file) {
+    newListing.image = {
+      url: req.file.path,
+      filename: req.file.filename
+    };
+  }
+
   await newListing.save();
   req.flash("success", "Successfully created a new listing!");
-  res.redirect("/listing");
-}
+  res.redirect(`/listing/${newListing._id}`);
+};
+
+
+
+// module.exports.createListings = async (req, res) => {
+//   let url = req.file.path;
+//   let filename = req.file.filename;
+//   const newListing = new Listing(req.body.listing);
+//   newListing.owner = req.user._id;
+//   newListing.image = {url,filename};
+//   await newListing.save();
+//   req.flash("success", "Successfully created a new listing!");
+//   res.redirect("/listing");
+// }
+
 
 module.exports.showRoutes = async (req, res) => {
   const { id } = req.params;
-  const listing = await Listing.findById(id).populate({path: "reviews",populate:{ path: 'author'}}).populate("owner");
+  const listing = await Listing.findById(id)
+    .populate({ path: "reviews", populate: { path: 'author' } })
+    .populate("owner");
 
   if (!listing) {
     req.flash("error", "Listing not found!");
-    return res.redirect("/listing");   // 👈 FIXED: return added
+    return res.redirect("/listing");
   }
 
-  res.render("listing/show.ejs", { listing });
+  // Pass JSON version of listing to avoid EJS-in-JS issues
+  res.render("listing/show.ejs", { listing, listingJSON: JSON.stringify(listing) });
 }
+
+
+// module.exports.showRoutes = async (req, res) => {
+//   const { id } = req.params;
+//   const listing = await Listing.findById(id).populate({path: "reviews",populate:{ path: 'author'}}).populate("owner");
+
+//   if (!listing) {
+//     req.flash("error", "Listing not found!");
+//     return res.redirect("/listing");   // 👈 FIXED: return added
+//   }
+
+//   res.render("listing/show.ejs", { listing });
+// }
 
 module.exports.editForm = async (req, res) => {
   const { id } = req.params;

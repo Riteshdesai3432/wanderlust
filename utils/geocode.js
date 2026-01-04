@@ -1,25 +1,22 @@
-const axios = require("axios");
+import fetch from "node-fetch";
 
-module.exports.geocodeLocation = async (location) => {
-  const response = await axios.get(
-    "https://photon.komoot.io/api/",
-    {
-      params: {
-        q: location,
-        limit: 1
-      },
-      timeout: 10000
+const geocodeLocation = async (address) => {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": "wanderlust-project"
     }
-  );
+  });
 
-  if (!response.data.features.length) {
-    throw new Error("Location not found");
-  }
+  const data = await response.json();
 
-  const coords = response.data.features[0].geometry.coordinates;
+  if (!data.length) return null;
 
   return {
-    lng: coords[0],
-    lat: coords[1]
+    lat: data[0].lat,
+    lng: data[0].lon
   };
 };
+
+export default geocodeLocation;
