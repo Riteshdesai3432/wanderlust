@@ -193,8 +193,8 @@ footer .f-info {
    RESPONSIVE BREAKPOINTS
 ================================ */
 
-/* Large Tablets & Small Desktops (768px - 1199px) */
-@media (max-width: 1199px) {
+/* Large Tablets & Small Desktops (993px - 1199px) */
+@media (max-width: 1199px) and (min-width: 993px) {
   .sho-cards {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.2rem;
@@ -258,7 +258,7 @@ footer .f-info {
   }
 
   .sho-cards {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.8rem;
     max-width: 100%;
     margin: 0 auto;
